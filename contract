@@ -573,7 +573,7 @@ contract Coinflip is Ownable {
     struct Bet {
         address playerAddress;
         uint256 betValue;
-        uint256 headsTails;
+        uint256 YuriHarry;
     }
 
     mapping(address => uint256) public playerWinnings;
@@ -626,7 +626,7 @@ contract Coinflip is Ownable {
      *     user's address (which we has access to here with msg.sender) and the user's queryId sent from
      *     Provable after the function call.
      *
-     *@param oneZero - The numerical value of heads(0) or tails(1)
+     *@param oneZero - The numerical value of Yuri(0) or Harry(1)
      */
 
     function flip(uint256 oneZero,uint256 amount) public {
@@ -636,7 +636,7 @@ contract Coinflip is Ownable {
         Bet memory postBet;
         postBet.playerAddress = msg.sender;
         postBet.betValue = amount;
-        postBet.headsTails = oneZero;
+        postBet.YuriHarry = oneZero;
         
         IERC20(flipTokenAddress).safeTransferFrom(
             msg.sender,
@@ -646,7 +646,7 @@ contract Coinflip is Ownable {
         
         uint flipResult = getResult();
 
-        if (flipResult == postBet.headsTails) {
+        if (flipResult == postBet.YuriHarry) {
             //winner
             emit filpFinshed(1);
             uint winAmount = SafeMath.sub(SafeMath.mul(postBet.betValue, 2), 0);
